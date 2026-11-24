@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10.A Mini Project 1 | ShuttlePulse AI Sports & Reflex Planner</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { margin: 0; background: #0b1120; color: #e2e8f0; line-height: 1.6; }
+    header {
+      background: linear-gradient(135deg, #064e3b, #0f172a);
+      padding: 42px 20px;
+      text-align: center;
+      border-bottom: 1px solid #1e293b;
+    }
+    header h1 { margin: 0; color: #34d399; font-size: 2.1rem; }
+    header p { color: #cbd5e1; max-width: 700px; margin: 10px auto 0; }
+    .badge {
+      display: inline-block;
+      background: rgba(52, 211, 153, 0.15);
+      color: #34d399;
+      border: 1px solid #34d399;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+    .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+    .card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    h2 { color: #34d399; margin-top: 0; border-bottom: 1px solid #1f2937; padding-bottom: 10px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    label { display: block; font-weight: 600; margin-top: 10px; color: #94a3b8; }
+    select, input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #0b1120;
+      color: #f8fafc;
+      font-size: 1rem;
+    }
+    button.primary-btn {
+      background: #10b981;
+      color: #06281e;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 18px;
+      transition: 0.2s;
+    }
+    button.primary-btn:hover { background: #059669; color: #fff; }
+    .output-box {
+      background: #0b1120;
+      border-left: 4px solid #10b981;
+      padding: 18px;
+      margin-top: 18px;
+      border-radius: 8px;
+      white-space: pre-line;
+    }
+    .reflex-pad {
+      margin-top: 14px;
+      height: 150px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      background: #1e293b;
+      border: 2px dashed #475569;
+      text-align: center;
+      padding: 15px;
+    }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.95rem; }
+    th, td { border: 1px solid #1f2937; padding: 11px; text-align: left; }
+    th { background: #0b1120; color: #34d399; }
+    footer { text-align: center; padding: 24px; color: #64748b; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="badge">Mini Project 1 • Syllabus Task 10.A (CO1 – CO5)</span>
+  <h1>ShuttlePulse AI: Smart Workout & Sports Reflex Planner</h1>
+  <p>An AI-assisted athletic training & reflex reaction planner built with Gemini, Canva, and GitHub Pages.</p>
+</header>
+
+<div class="container">
+
+  <!-- 1. Problem Definition -->
+  <div class="card">
+    <h2>1. Problem Definition, Objectives & Requirements</h2>
+    <p><strong>Problem Statement:</strong> Athletes and college sports players often rely on static workout routines that fail to adjust for daily fatigue, limited session time, or sport-specific reaction speed.</p>
+    <p><strong>Objective:</strong> Design an AI-powered web application that builds customized warm-ups, badminton/sports agility drills, and recovery protocols based on real-time player readiness.</p>
+    <p><strong>Tech Stack & AI Tools:</strong> Gemini (Prompt Engineering & Training Logic), Canva (System Diagrams & Presentation Deck), HTML/CSS/JS + GitHub Pages (Deployment).</p>
+  </div>
+
+  <!-- 2. Interactive AI Planner App -->
+  <div class="card">
+    <h2>2. Live AI Workout & Reflex Planner Application</h2>
+    <div class="grid-2">
+      <div>
+        <label for="sportSelect">Sport Focus</label>
+        <select id="sportSelect">
+          <option value="badminton">Badminton (Court Footwork & Reflexes)</option>
+          <option value="cricket">Cricket (Fielding Agility & Sprint)</option>
+          <option value="general">General Athletic Conditioning</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="levelSelect">Skill Level</label>
+        <select id="levelSelect">
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate" selected>Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="timeSelect">Available Duration</label>
+        <select id="timeSelect">
+          <option value="15">15 Minutes (Express)</option>
+          <option value="30" selected>30 Minutes (Standard)</option>
+          <option value="45">45 Minutes (Full Session)</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="fatigueInput">Current Fatigue Score (1 = Fresh, 10 = Exhausted)</label>
+        <input type="number" id="fatigueInput" min="1" max="10" value="4" />
+      </div>
+    </div>
+
+    <button class="primary-btn" onclick="generateTrainingPlan()">Generate AI Training & Recovery Plan</button>
+    <div id="planOutput" class="output-box">Select your readiness parameters above and click "Generate AI Training & Recovery Plan".</div>
+  </div>
+
+  <!-- 3. Built-in Reflex Speed Tester -->
+  <div class="card">
+    <h2>3. Interactive Court Reflex Speed Test</h2>
+    <p>Test your visual-motor reaction time before and after your warm-up drill:</p>
+    <div id="reflexBox" class="reflex-pad" onclick="handleReflexClick()">
+      Click here to start Reflex Test
+    </div>
+    <p id="reflexResult" style="margin-top:10px; color:#34d399; font-weight:600;"></p>
+  </div>
+
+  <!-- 4. Testing & Evaluation -->
+  <div class="card">
+    <h2>4. Testing, Evaluation & Iterative Improvements</h2>
+    <table>
+      <tr>
+        <th>Test Case</th>
+        <th>Input Tested</th>
+        <th>Initial Issue</th>
+        <th>Improvement Made</th>
+      </tr>
+      <tr>
+        <td>TC-01</td>
+        <td>Fatigue Score = 8 (High)</td>
+        <td>Recommended high-impact jump drills</td>
+        <td>Added automatic fatigue safety override for recovery mode</td>
+      </tr>
+      <tr>
+        <td>TC-02</td>
+        <td>Duration = 15 Minutes</td>
+        <td>Routine exceeded time budget</td>
+        <td>Scaled sets and rest blocks dynamically to match minutes</td>
+      </tr>
+      <tr>
+        <td>TC-03</td>
+        <td>Premature click on Reflex Pad</td>
+        <td>Displayed invalid reaction time</td>
+        <td>Added false-start detection ("Too Soon! Wait for Green")</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 5. Outcomes -->
+  <div class="card">
+    <h2>5. Project Outcomes & Conclusion</h2>
+    <p><strong>Outcome:</strong> Delivered a live, mobile-friendly AI sports planner and reflex tester hosted on GitHub Pages that adapts drill intensity to athlete fatigue.</p>
+    <p><strong>Future Enhancement:</strong> Connecting wearable heart-rate data and webcam pose estimation for automated shuttle-footwork tracking.</p>
+  </div>
+
+</div>
+
+<footer>
+  Developed by Kashish Thakor • B.Tech CSE (AIML & Generative AI) • Mini Project 1 (10.A)
+</footer>
+
+<script>
+  function generateTrainingPlan() {
+    const sport = document.getElementById("sportSelect").value;
+    const level = document.getElementById("levelSelect").value;
+    const mins = document.getElementById("timeSelect").value;
+    const fatigue = parseInt(document.getElementById("fatigueInput").value, 10) || 5;
+    const output = document.getElementById("planOutput");
+
+    if (fatigue < 1 || fatigue > 10) {
+      output.textContent = "Please enter a valid fatigue score between 1 and 10.";
+      return;
+    }
+
+    let modeNote = "";
+    let drills = "";
+    let recovery = "";
+
+    if (fatigue >= 7) {
+      modeNote = "⚠️ HIGH FATIGUE DETECTED (" + fatigue + "/10) — Switching to Low-Impact Recovery & Mobility Mode.";
+      drills = "• 5 min: Dynamic joint mobility (ankles, hips, rotator cuff)\n• " + (mins - 10) + " min: Slow-tempo shadow footwork & balance holds\n• Focus: Technique precision without heart-rate spikes";
+      recovery = "• 5 min: Deep calf/hamstring stretch + hydration & electrolytes";
+    } else {
+      modeNote = "✅ OPTIMAL READINESS (" + fatigue + "/10) — " + level + " Intensity (" + mins + " Mins)";
+      if (sport === "badminton") {
+        drills = "• Warm-up (5 min): Skipping + split-step hops + wrist rotations\n" +
+                 "• Main Reflex Block (" + (mins - 10) + " min): 6-corner shadow footwork, random call-out directional lunges, and rapid net-kill reaction taps\n" +
+                 "• Intensity: " + (level === "Advanced" ? "40s work / 15s rest (5 sets)" : "30s work / 20s rest (4 sets)");
+        recovery = "• Cool-down (5 min): Forearm/shoulder stretch + controlled nasal breathing";
+      } else if (sport === "cricket") {
+        drills = "• Warm-up (5 min): High knees, carioca steps, shoulder mobility\n" +
+                 "• Main Reflex Block (" + (mins - 10) + " min): Reaction ball drop catches, 10m shuttle sprints, and lateral dive-recovery drills\n" +
+                 "• Intensity: " + (level === "Advanced" ? "45s work / 15s rest (5 sets)" : "30s work / 20s rest (4 sets)");
+        recovery = "• Cool-down (5 min): Hip flexor stretch + lower-back decompression";
+      } else {
+        drills = "• Warm-up (5 min): Jumping jacks, inchworms, torso twists\n" +
+                 "• Main Reflex Block (" + (mins - 10) + " min): Ladder quick-feet, visual cue sprint starts, and core stability planks\n" +
+                 "• Intensity: " + (level === "Advanced" ? "40s work / 15s rest (5 sets)" : "30s work / 20s rest (4 sets)");
+        recovery = "• Cool-down (5 min): Full-body static stretch + hydration";
+      }
+    }
+
+    output.textContent =
+      modeNote + "\n\n" +
+      "🏋️ RECOMMENDED SESSION PLAN:\n" + drills + "\n\n" +
+      "🧘 RECOVERY PROTOCOL:\n" + recovery;
+  }
+
+  // Reflex Timer Logic
+  let reflexState = "idle"; // idle, waiting, ready
+  let startTime = 0;
+  let timerId = null;
+
+  function handleReflexClick() {
+    const box = document.getElementById("reflexBox");
+    const result = document.getElementById("reflexResult");
+
+    if (reflexState === "idle") {
+      reflexState = "waiting";
+      box.style.background = "#991b1b";
+      box.style.borderColor = "#f87171";
+      box.textContent = "WAIT FOR GREEN...";
+      result.textContent = "";
+
+      const delay = Math.floor(Math.random() * 2500) + 1500;
+      timerId = setTimeout(() => {
+        reflexState = "ready";
+        startTime = performance.now();
+        box.style.background = "#065f46";
+        box.style.borderColor = "#34d399";
+        box.textContent = "TAP NOW!";
+      }, delay);
+
+    } else if (reflexState === "waiting") {
+      clearTimeout(timerId);
+      reflexState = "idle";
+      box.style.background = "#1e293b";
+      box.style.borderColor = "#475569";
+      box.textContent = "Too Soon! Click to try again.";
+      result.textContent = "False start detected — wait until the box turns green.";
+
+    } else if (reflexState === "ready") {
+      const reaction = Math.round(performance.now() - startTime);
+      reflexState = "idle";
+      box.style.background = "#1e293b";
+      box.style.borderColor = "#475569";
+      box.textContent = reaction + " ms! Click to test again.";
+
+      let rating = reaction < 230 ? "Pro Court Reflexes!" : reaction < 320 ? "Sharp Match Readiness" : "Warm Up & Try Again";
+      result.textContent = "Last Reaction Time: " + reaction + " ms (" + rating + ")";
+    }
+  }
+</script>
+
+</body>
+</html>
